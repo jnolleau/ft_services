@@ -1,0 +1,36 @@
+nginx:
+    image: nginx
+    ports:
+        - '8080:8080'
+    volumes:
+        - ./nginx:/etc/nginx/conf.d
+        - ./logs/nginx:/var/log/nginx
+        - ./wordpress:/var/www/html
+    links:
+        - wordpress
+    restart: always
+
+mysql:
+    image: mysql
+    ports:
+        - '3306:3306'
+    volumes:
+        - ./db-data:/var/lib/mysql
+    environment:
+        - MYSQL_ROOT_PASSWORD=aqwe123
+    restart: always
+
+wordpress:
+    image: wordpress
+    ports:
+        - '5050:5050'
+    volumes:
+        - ./wordpress:/var/www/localhost/htdocs/
+    environment:
+        - WORDPRESS_DB_NAME=wpdb
+        - WORDPRESS_TABLE_PREFIX=wp_
+        - WORDPRESS_DB_HOST=mysql
+        - WORDPRESS_DB_PASSWORD=aqwe123
+    links:
+        - mysql
+    restart: always
