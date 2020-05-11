@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:latest
 
 # Installation
 RUN apk update \
@@ -12,12 +12,14 @@ RUN chown influxdb:influxdb /var/lib/influxdb
 # Copy init files
 # COPY wordpress.sql /tmp/
 COPY idb.sh /usr/local/bin/
-COPY influx_db-init.iql /tmp/
+# COPY influx_db-init.iql /tmp/
 COPY influxdb.conf /etc/influxdb/influxdb.conf
 COPY influxdb.conf /etc/influxdb.conf
+
+RUN /usr/local/bin/idb.sh && rm /usr/local/bin/idb.sh
 
 # VOLUME ["/var/lib/mysql"]
 
 EXPOSE 8086
 
-ENTRYPOINT ["idb.sh"]
+ENTRYPOINT influxd

@@ -17,6 +17,6 @@ RUN chmod +x ./telegraf/usr/bin/telegraf
 
 # VOLUME ["/var/run/docker.sock"]
 
-EXPOSE 4999
+# EXPOSE 4999
 
 ENTRYPOINT ["telegraf.sh"]

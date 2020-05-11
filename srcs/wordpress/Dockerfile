@@ -7,6 +7,7 @@ RUN apk update \
 # Copy init files
 # COPY wordpress /var/www/localhost/htdocs
 COPY wp.sh /usr/local/bin/
+COPY latest.tar.gz /tmp/
 
 EXPOSE 5050
 

@@ -7,4 +7,4 @@ cd /telegraf/usr/bin && ./telegraf --config "/telegraf/etc/telegraf/telegraf.con
 # openrc default
 # rc-update add telegraf default
 # rc-service telegraf start 2> /dev/NULL
-/bin/sh
+# /bin/sh

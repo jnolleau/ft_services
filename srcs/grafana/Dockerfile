@@ -11,7 +11,7 @@ RUN tar -zxvf grafana-6.7.3.linux-amd64.tar.gz \
 # COPY ./grafana.db ./grafana-6.6.0/data/
 
 COPY grafana.sh /usr/local/bin/
-COPY grafana.db /grafana-6.7.3/data/
+# COPY grafana.db /grafana-6.7.3/data/
 
 RUN chmod +x /usr/local/bin/grafana.sh
 
