@@ -32,5 +32,13 @@ spec:
         imagePullPolicy: Never
         securityContext:
           privileged: true
+        volumeMounts:
+        - mountPath: /var/lib/influxdb
+          name: influxdb-pv-data
+          # readOnly: false
+      volumes:
+      - name: influxdb-pv-data
+        persistentVolumeClaim:
+          claimName: pvc-influxdb
       # ports:
         # - containerPort: 80

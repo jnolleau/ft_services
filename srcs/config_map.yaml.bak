@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ft-services-config
+data:
+  mk-ip: {{MINIKUBE_IP}}
+  user: {{USER}}
+  password: {{PW}}

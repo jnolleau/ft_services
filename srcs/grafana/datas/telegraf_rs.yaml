@@ -1,0 +1,10 @@
+apiVersion: 1
+
+datasources:
+- name: telegraf
+  type: influxdb
+  access: proxy
+  url: http://172.17.0.3:8086
+  isDefault: true
+  editable: true
+  database: telegraf

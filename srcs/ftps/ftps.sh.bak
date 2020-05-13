@@ -1,6 +1,5 @@
 #!/bin/sh
 message='Welcome on ft_services by julnolle ! Please use ftp client (Filezilla) to connect with SSL.'
-message2='ft_services over SSL by julnolle !'
 
 openrc default
 
@@ -16,9 +15,9 @@ mkdir -p /srv/ftp
 chown nobody:nogroup /srv/ftp
 echo "$message" > /srv/ftp/README
 
-adduser -D $USER
-echo "$USER:$PASSWORD" | chpasswd
-echo "$message2" > /home/$USER/README
+adduser -D {{USER}}
+echo "{{USER}}:pw" | chpasswd
+echo "$message" > /home/{{USER}}/README
 rc-update add vsftpd default
 cd /etc/init.d/ && vsftpd "/etc/vsftpd/vsftpd.conf"
 # rc-service vsftpd start 2> /dev/NULL

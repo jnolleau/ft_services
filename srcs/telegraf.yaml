@@ -33,8 +33,11 @@ spec:
         securityContext:
           privileged: true
         env:
-          - name: MINIKUBE_IP
-            value: {{MINIKUBE_IP}}
+        - name: MINIKUBE_IP
+          valueFrom:
+            configMapKeyRef:
+              name: ft-services-config
+              key: mk-ip
         volumeMounts:
         - mountPath: /var/run/docker.sock
           name: docker-socket

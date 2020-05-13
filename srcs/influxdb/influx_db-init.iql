@@ -1,2 +1,0 @@
-CREATE USER telegraf_user WITH PASSWORD 'telegraf_pw' WITH ALL PRIVILEGES;
-CREATE DATABASE telegraf;

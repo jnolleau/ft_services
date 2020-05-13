@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ft-services-config
+data:
+  mk-ip: 172.17.0.3
+  user: julien
+  password: pw

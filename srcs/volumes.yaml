@@ -1,0 +1,26 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+   name: pv-influxdb 
+spec:
+  capacity:
+    storage: 50Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /fts_datas
+    type: DirectoryOrCreate
+
+---
+
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-influxdb
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Mi
+  #storageClassName: yourClass

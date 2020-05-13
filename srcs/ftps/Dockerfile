@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-RUN apk update && apk add openrc openssl lsof vsftpd --no-cache
+RUN apk update && apk add openrc openssl vsftpd --no-cache
 
 COPY ftps.sh /usr/local/bin/
 COPY vsftpd.conf /etc/vsftpd/

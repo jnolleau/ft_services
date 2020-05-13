@@ -23,7 +23,7 @@ no_anon_password=YES
 pasv_enable=YES
 pasv_min_port=30021
 pasv_max_port=30021
-pasv_address=172.17.0.3
+pasv_address={{MINIKUBE_IP}}
 
 # Options for SSL
 # encrypted connections.

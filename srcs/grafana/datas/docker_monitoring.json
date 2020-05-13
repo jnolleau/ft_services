@@ -2,7 +2,6 @@
   "annotations": {
     "list": [
       {
-        "$$hashKey": "object:457",
         "builtIn": 1,
         "datasource": "-- Grafana --",
         "enable": true,
@@ -14,11 +13,11 @@
     ]
   },
   "description": "Docker Metrics with influx and Telegraf",
-  "editable": false,
+  "editable": true,
   "gnetId": 10585,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1588947694952,
+  "iteration": 1589298654623,
   "links": [],
   "panels": [
     {
