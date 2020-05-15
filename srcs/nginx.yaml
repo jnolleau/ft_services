@@ -1,5 +1,5 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: nginx
 spec:
@@ -9,17 +9,20 @@ spec:
   ports:
     - name: http
       port: 80
+      protocol: TCP
       nodePort: 80
     - name: https
       port: 443
+      protocol: TCP
       nodePort: 443
     - name: ssh
-      port: 22
+      port: 2022
+      protocol: TCP
       nodePort: 2022
 
 ---
 
-apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -27,7 +30,7 @@ spec:
   selector:
     matchLabels:
       app: nginx
-  replicas: 1 # tells deployment to run 2 pods matching the template
+  replicas: 1
   template:
     metadata:
       labels:
@@ -45,5 +48,24 @@ spec:
             configMapKeyRef:
               name: ft-services-config
               key: mk-ip
-        # ports:
-        # - containerPort: 80
+        - name: USER
+          valueFrom:
+            configMapKeyRef:
+              name: ft-services-config
+              key: user
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ft-services-secret
+              key: password
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+      #   volumeMounts:
+      #   - name: wordpress-persistent-storage
+      #     mountPath: /www/wordpress
+      #     readOnly: true
+      # volumes:
+      # - name: wordpress-persistent-storage
+      #   persistentVolumeClaim:
+      #     claimName: wp-pv-claim

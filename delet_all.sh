@@ -13,4 +13,4 @@ srcs='./srcs'
 		# Delete
 		kubectl delete -f $srcs/$service.yaml
 	done
-		kubectl delete pv --all
+		# kubectl delete pv --all

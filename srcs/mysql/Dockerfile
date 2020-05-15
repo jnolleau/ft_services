@@ -10,7 +10,7 @@ COPY wordpress.sql /tmp/
 COPY mysql.sh /usr/local/bin/
 COPY my.cnf /etc/mysql/my.cnf
 
-VOLUME ["/var/lib/mysql"]
+# VOLUME ["/var/lib/mysql"]
 
 EXPOSE 3306
 

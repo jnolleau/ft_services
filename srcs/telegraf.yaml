@@ -1,17 +1,3 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: telegraf
-spec:
-  type: NodePort
-  selector:
-    app: telegraf
-  ports:
-    - name: telegraf
-      port: 7906
-
----
-
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
@@ -33,11 +19,11 @@ spec:
         securityContext:
           privileged: true
         env:
-        - name: MINIKUBE_IP
+        - name: USER
           valueFrom:
             configMapKeyRef:
               name: ft-services-config
-              key: mk-ip
+              key: user
         volumeMounts:
         - mountPath: /var/run/docker.sock
           name: docker-socket
@@ -51,3 +37,17 @@ spec:
           type: Socket
       # ports:
       # - containerPort: 80
+
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: telegraf
+# spec:
+#   type: NodePort
+#   selector:
+#     app: telegraf
+#   ports:
+#     - name: telegraf
+#       port: 7906
+
+# ---

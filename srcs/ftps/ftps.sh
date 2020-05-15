@@ -20,6 +20,9 @@ adduser -D $USER
 echo "$USER:$PASSWORD" | chpasswd
 echo "$message2" > /home/$USER/README
 rc-update add vsftpd default
+
+sed -i "s/{{MINIKUBE_IP}}/$MINIKUBE_IP/" /etc/vsftpd/vsftpd.conf
+
 cd /etc/init.d/ && vsftpd "/etc/vsftpd/vsftpd.conf"
 # rc-service vsftpd start 2> /dev/NULL
 # /bin/sh

@@ -3,6 +3,14 @@ kind: ConfigMap
 metadata:
   name: ft-services-config
 data:
-  mk-ip: 172.17.0.3
+  mk-ip: 172.17.0.2
   user: julien
-  password: pw
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ft-services-secret
+data:
+  password: cHcK

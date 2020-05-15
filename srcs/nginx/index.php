@@ -1,4 +1,8 @@
-<?php $minikube_ip = getenv('MINIKUBE_IP'); ?>
+<?php
+	$minikube_ip = getenv('MINIKUBE_IP');
+	$nginx_service_port_ssh = getenv('NGINX_SERVICE_PORT_SSH');
+
+?>
 
 <!DOCTYPE HTML>
 <html>
@@ -18,7 +22,7 @@
 		</div>
 		<div class="others">
 			<h3>others</h3>
-			nginx - ssh: ssh __SSH_USERNAME__@<?= $minikube_ip ?> -p 3022</br>
+			nginx - ssh: ssh __SSH_USERNAME__@<?= $minikube_ip ?> -p <?= $nginx_service_port_ssh ?></br>
 			password is __SSH_PASSWORD__</br>
 			</br>
 			ftps: open filezilla and connect to <?= $minikube_ip ?> on port 21</br>

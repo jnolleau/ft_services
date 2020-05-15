@@ -1,22 +1,36 @@
 #!/bin/bash
 
+######################### CONFIGURATION #########################
+
 # List of the services, comment the ones you don't want to run
 services=(		\
+	mysql		\
+	wordpress	\
+	phpmyadmin	\
 	nginx		\
 	ftps		\
-	# wordpress	\
-	# mysql		\
-	# phpmyadmin	\
 	influxdb	\
 	telegraf	\
 	grafana		\
-	)
+)
 
 # Images source directory
 srcs='./srcs'
 
+# User
+if [ -z "${USER}" ]
+then
+  user="admin"
+else
+  user=$USER
+fi
+
 # Passwords wherever it is needed
 password='pw'
+
+
+####################### END CONFIGURATION #######################
+# Do not edit from here
 
 
 if [ $# -ge 1 ] && [ $1 = 'stop' ]
@@ -40,21 +54,21 @@ else
 	# mv $srcs/nginx.yaml.bak $srcs/nginx.yaml
 	# mv $srcs/telegraf.yaml.bak $srcs/telegraf.yaml
 	# mv $srcs/grafana.yaml.bak $srcs/grafana.yaml
-	mv $srcs/grafana/datas/telegraf_rs.yaml.bak $srcs/grafana/datas/telegraf_rs.yaml
-	mv $srcs/ftps/vsftpd.conf.bak $srcs/ftps/vsftpd.conf
+	# mv $srcs/grafana/datas/telegraf_rs.yaml.bak $srcs/grafana/datas/telegraf_rs.yaml
+	# mv $srcs/ftps/vsftpd.conf.bak $srcs/ftps/vsftpd.conf
 	# mv $srcs/ftps/ftps.sh.bak $srcs/ftps/ftps.sh
 	mv $srcs/config_map.yaml.bak $srcs/config_map.yaml
 	
 	# Set the minikube ip in several config files
 	# sed -i.bak "s/{{MINIKUBE_IP}}/$minikube_ip/g" $srcs/nginx.yaml
 	# sed -i.bak "s/{{MINIKUBE_IP}}/$minikube_ip/g" $srcs/telegraf.yaml
-	# sed -i.bak "s/{{USER}}/$USER/g" $srcs/grafana.yaml
-	sed -i.bak "s/{{MINIKUBE_IP}}/$minikube_ip/g" $srcs/grafana/datas/telegraf_rs.yaml
-	sed -i.bak "s/{{MINIKUBE_IP}}/$minikube_ip/g" $srcs/ftps/vsftpd.conf
-	# sed -i.bak "s/{{USER}}/$USER/g" $srcs/ftps/ftps.sh
-	sed -i.bak "s/{{USER}}/$USER/g; \
+	# sed -i.bak "s/{{user}}/$user/g" $srcs/grafana.yaml
+	# sed -i.bak "s/{{MINIKUBE_IP}}/$minikube_ip/g" $srcs/grafana/datas/telegraf_rs.yaml
+	# sed -i.bak "s/{{MINIKUBE_IP}}/$minikube_ip/g" $srcs/ftps/vsftpd.conf
+	# sed -i.bak "s/{{user}}/$user/g" $srcs/ftps/ftps.sh
+	sed -i.bak "s/{{USER}}/$user/g; \
 				s/{{MINIKUBE_IP}}/$minikube_ip/g; \
-				s/{{PW}}/$password/g" $srcs/config_map.yaml
+				s/{{PW}}/`echo $password | base64`/g" $srcs/config_map.yaml
 	
 	sleep 4
 
@@ -64,7 +78,7 @@ else
 	# Create the ConfigMap containing environment var for containers
 	kubectl create -f ./srcs/config_map.yaml
 	# Create peristent volumes
-	kubectl apply -f ./srcs/volumes.yaml
+	kubectl create -f ./srcs/volumes.yaml
 
 	# Build images and deploy all services
 	for service in "${services[@]}"
@@ -72,13 +86,13 @@ else
 		# Build Docker images
 		docker build -t ${service}_img $srcs/$service
 		# # Deployment
-		# kubectl apply -f $srcs/$service.yaml
+		# kubectl create -f $srcs/$service.yaml
 	done
 
 	# Deployment
-	kubectl apply -k ./srcs/
-	# Apply ingress for nginx
-	kubectl apply -f $srcs/ingress.yaml
+	kubectl create -k ./srcs/
+	# Create ingress for nginx
+	kubectl create -f $srcs/ingress.yaml
 
 	sleep 5
 
@@ -89,8 +103,8 @@ else
 	echo "Nginx HTTP URL: `minikube service nginx --url | grep '80'`"
 	echo "Nginx HTTPS URL: `minikube service nginx --url --https | grep '443'`"
 	echo "Grafana URL: `minikube service grafana --url`"
-	echo "Influxdb URL: `minikube service influxdb --url`"
-	echo "FTP URL: ftp://`minikube service ftps --url | grep 30 | cut -b 8-17` - Port 21"
+	# echo "Influxdb URL: `minikube service influxdb --url`"
+	echo "FTP URL: ftp://`minikube ip` - Port 21"
 fi
 
 
@@ -109,11 +123,11 @@ fi
 # 	then
 # 		kubectl delete -f srcs/ingress-deployment.yaml >/dev/null 2>&1
 # 		echo "		Creating ingress for nginx..."
-# 		kubectl apply -f srcs/ingress-deployment.yaml > /dev/null
+# 		kubectl create -f srcs/ingress-deployment.yaml > /dev/null
 # 	fi
 # 	kubectl delete -f srcs/$service-deployment.yaml > /dev/null 2>&1
 # 	echo "		Creating container..."
-# 	kubectl apply -f srcs/$service-deployment.yaml > /dev/null
+# 	kubectl create -f srcs/$service-deployment.yaml > /dev/null
 # 	while [[ $(kubectl get pods -l app=$service -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]];
 # 	do
 # 		sleep 1;

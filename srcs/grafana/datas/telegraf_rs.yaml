@@ -4,7 +4,9 @@ datasources:
 - name: telegraf
   type: influxdb
   access: proxy
-  url: http://172.17.0.3:8086
+  url: http://${INFLUXDB_SERVICE_HOST}:8086
   isDefault: true
   editable: true
   database: telegraf
+  # jsonData:
+  #   timeInterval: '10s'

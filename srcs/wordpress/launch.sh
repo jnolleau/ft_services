@@ -1,3 +1,2 @@
-docker build -t wordpress .
-docker run --name wp_container --rm -ti -p 5050:5050 \
-			-v $(pwd)/wordpress:/var/www/localhost/htdocs wordpress
+docker build -t wordpress_local .
+docker run --name wp_container --rm -ti -p 5050:5050 wordpress_local

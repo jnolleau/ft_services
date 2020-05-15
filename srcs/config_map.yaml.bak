@@ -5,4 +5,12 @@ metadata:
 data:
   mk-ip: {{MINIKUBE_IP}}
   user: {{USER}}
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ft-services-secret
+data:
   password: {{PW}}

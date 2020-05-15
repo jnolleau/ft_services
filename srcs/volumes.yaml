@@ -1,17 +1,46 @@
-kind: PersistentVolume
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#    name: pv-wordpress 
+# spec:
+#   capacity:
+#     storage: 50Mi
+#   accessModes:
+#     - ReadWriteOnce
+#   hostPath:
+#     path: /data-wp
+#     type: DirectoryOrCreate
+
+# ---
+
+kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-   name: pv-influxdb 
+  name: pvc-wordpress
 spec:
-  capacity:
-    storage: 50Mi
   accessModes:
     - ReadWriteOnce
-  hostPath:
-    path: /fts_datas
-    type: DirectoryOrCreate
+  resources:
+    requests:
+      storage: 50Mi
+  #storageClassName: yourClass
 
 ---
+
+# kind: PersistentVolume
+# apiVersion: v1
+# metadata:
+#    name: pv-influxdb 
+# spec:
+#   capacity:
+#     storage: 50Mi
+#   accessModes:
+#     - ReadWriteOnce
+#   hostPath:
+#     path: /data
+#     type: DirectoryOrCreate
+
+# ---
 
 kind: PersistentVolumeClaim
 apiVersion: v1
