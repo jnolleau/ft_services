@@ -75,10 +75,6 @@ else
 	# Set the environment variable to use local Docker
 	eval $(minikube docker-env)
 
-	# Create the ConfigMap containing environment var for containers
-	kubectl create -f ./srcs/config_map.yaml
-	# Create peristent volumes
-	kubectl create -f ./srcs/volumes.yaml
 
 	# Build images and deploy all services
 	for service in "${services[@]}"
@@ -89,6 +85,10 @@ else
 		# kubectl create -f $srcs/$service.yaml
 	done
 
+	# Create the ConfigMap containing environment var for containers
+	kubectl create -f ./srcs/config_map.yaml
+	# Create peristent volumes
+	kubectl create -f ./srcs/volumes.yaml
 	# Deployment
 	kubectl create -k ./srcs/
 	# Create ingress for nginx
@@ -103,8 +103,10 @@ else
 	echo "Nginx HTTP URL: `minikube service nginx --url | grep '80'`"
 	echo "Nginx HTTPS URL: `minikube service nginx --url --https | grep '443'`"
 	echo "Grafana URL: `minikube service grafana --url`"
+	echo "Wordpress URL: http://$minikube_ip/wordpress/"
+	echo "PhpMyAdmin URL: http://$minikube_ip/phpmyadmin/"
 	# echo "Influxdb URL: `minikube service influxdb --url`"
-	echo "FTP URL: ftp://`minikube ip` - Port 21"
+	echo "FTP URL: ftp://$minikube_ip - Port 21"
 fi
 
 

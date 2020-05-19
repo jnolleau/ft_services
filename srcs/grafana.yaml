@@ -10,6 +10,7 @@ spec:
     - name: grafana
       port: 3000
       nodePort: 3000
+      targetPort: 3000
 
 ---
 
@@ -39,5 +40,10 @@ spec:
             configMapKeyRef:
               name: ft-services-config
               key: user
-        # ports:
-        # - containerPort: 80
+        - name: PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: ft-services-secret
+              key: password
+        ports:
+        - containerPort: 3000

@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS wordpress;
-CREATE USER 'wp_user'@'localhost' IDENTIFIED BY 'pw';
-CREATE USER 'superuser'@'localhost' IDENTIFIED BY 'pw';
-GRANT ALL PRIVILEGES ON wordpress.* TO 'wp_user'@'localhost';
-GRANT ALL PRIVILEGES ON *.* TO 'superuser'@'localhost' WITH GRANT OPTION;
+CREATE DATABASE IF NOT EXISTS grafana;
+CREATE USER 'wp_user'@'%' IDENTIFIED BY 'pw';
+CREATE USER 'superuser'@'%' IDENTIFIED BY 'pw';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'wp_user'@'%';
+GRANT ALL PRIVILEGES ON *.* TO 'superuser'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;

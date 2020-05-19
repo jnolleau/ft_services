@@ -50,5 +50,13 @@ spec:
             secretKeyRef:
               name: ft-services-secret
               key: password
-        # ports:
-        # - containerPort: 5000
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: wordpress-persistent-storage
+          mountPath: /www
+          # readOnly: true
+      volumes:
+      - name: wordpress-persistent-storage
+        persistentVolumeClaim:
+          claimName: wp-pv-claim

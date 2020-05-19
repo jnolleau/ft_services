@@ -1,52 +1,54 @@
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#    name: pv-wordpress 
-# spec:
-#   capacity:
-#     storage: 50Mi
-#   accessModes:
-#     - ReadWriteOnce
-#   hostPath:
-#     path: /data-wp
-#     type: DirectoryOrCreate
-
-# ---
-
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolume
 metadata:
-  name: pvc-wordpress
+  name: wp-pv-volume
+  labels:
+    app: wordpress
 spec:
+  storageClassName: manual
+  capacity:
+    storage: 200Mi
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
+  hostPath:
+    path: "/data/wp"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wp-pv-claim
+  labels:
+    app: wordpress
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
   resources:
     requests:
-      storage: 50Mi
-  #storageClassName: yourClass
+      storage: 200Mi
 
 ---
 
-# kind: PersistentVolume
-# apiVersion: v1
-# metadata:
-#    name: pv-influxdb 
-# spec:
-#   capacity:
-#     storage: 50Mi
-#   accessModes:
-#     - ReadWriteOnce
-#   hostPath:
-#     path: /data
-#     type: DirectoryOrCreate
-
-# ---
-
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolume
 metadata:
-  name: pvc-influxdb
+   name: influxdb-pv-volume 
 spec:
+  storageClassName: idb
+  capacity:
+    storage: 50Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/idb
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: influxdb-pv-claim
+spec:
+  storageClassName: idb
   accessModes:
     - ReadWriteOnce
   resources:

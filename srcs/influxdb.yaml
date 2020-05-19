@@ -40,6 +40,6 @@ spec:
       volumes:
       - name: influxdb-pv-data
         persistentVolumeClaim:
-          claimName: pvc-influxdb
+          claimName: influxdb-pv-claim
       # ports:
         # - containerPort: 80

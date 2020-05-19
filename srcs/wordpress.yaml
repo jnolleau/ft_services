@@ -5,27 +5,17 @@ metadata:
   labels:
     app: wordpress
 spec:
+  type: NodePort
   ports:
     - port: 5050
+      nodePort: 5050
   selector:
     app: wordpress
     tier: frontend
-  type: LoadBalancer
+
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: wp-pv-claim
-  labels:
-    app: wordpress
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
----
-apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wordpress
@@ -61,7 +51,7 @@ spec:
           name: wordpress
         volumeMounts:
         - name: wordpress-persistent-storage
-          mountPath: /www/wordpress
+          mountPath: /www
       volumes:
       - name: wordpress-persistent-storage
         persistentVolumeClaim:
