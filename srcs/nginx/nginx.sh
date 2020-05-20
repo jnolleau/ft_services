@@ -1,4 +1,8 @@
 #!/bin/sh
+
+cp /tmp/index.php /www/
+cp /tmp/index.html /www/
+
 sed -i 's/;clear_env/clear_env/' /etc/php7/php-fpm.d/www.conf
 echo 'env["MINIKUBE_IP"] = $MINIKUBE_IP' >> /etc/php7/php-fpm.d/www.conf
 echo 'env["NGINX_SERVICE_PORT_SSH"] = $NGINX_SERVICE_PORT_SSH' >> /etc/php7/php-fpm.d/www.conf

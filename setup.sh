@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 ######################### CONFIGURATION #########################
 
@@ -76,23 +76,28 @@ else
 	eval $(minikube docker-env)
 
 
-	# Build images and deploy all services
+	# Build images
 	for service in "${services[@]}"
 	do
 		# Build Docker images
 		docker build -t ${service}_img $srcs/$service
-		# # Deployment
-		# kubectl create -f $srcs/$service.yaml
 	done
 
 	# Create the ConfigMap containing environment var for containers
-	kubectl create -f ./srcs/config_map.yaml
+	kubectl apply -f ./srcs/config_map.yaml
 	# Create peristent volumes
-	kubectl create -f ./srcs/volumes.yaml
-	# Deployment
-	kubectl create -k ./srcs/
+	kubectl apply -f ./srcs/volumes.yaml
+	
+	# Deploy all services
+	# for service in "${services[@]}"
+	# do
+	# 	kubectl apply -f $srcs/$service.yaml
+	# done
+
+	kubectl apply -k ./srcs/
+	
 	# Create ingress for nginx
-	kubectl create -f $srcs/ingress.yaml
+	kubectl apply -f $srcs/ingress.yaml
 
 	sleep 5
 
@@ -108,54 +113,3 @@ else
 	# echo "Influxdb URL: `minikube service influxdb --url`"
 	echo "FTP URL: ftp://$minikube_ip - Port 21"
 fi
-
-
-
-
-
-# echo "Building images:"
-# for service in "${services[@]}"
-# do
-# 	# timer init
-# 	service_timer_start=`date +%s`
-# 	echo "	->$service:"
-# 	echo "		Building new image..."		
-# 	docker build -t $service-image $srcs/$service > /dev/null # build archive
-# 	if [[ $service == "nginx" ]]
-# 	then
-# 		kubectl delete -f srcs/ingress-deployment.yaml >/dev/null 2>&1
-# 		echo "		Creating ingress for nginx..."
-# 		kubectl create -f srcs/ingress-deployment.yaml > /dev/null
-# 	fi
-# 	kubectl delete -f srcs/$service-deployment.yaml > /dev/null 2>&1
-# 	echo "		Creating container..."
-# 	kubectl create -f srcs/$service-deployment.yaml > /dev/null
-# 	while [[ $(kubectl get pods -l app=$service -o 'jsonpath={..status.conditions[?(@.type=="Ready")].status}') != "True" ]];
-# 	do
-# 		sleep 1;
-# 	done
-# 	sed -i '' s/__$service-POD__/$(kubectl get pods | grep $service | cut -d" " -f1)/g $srcs/grafana/srcs/global.json
-# 	#end timer
-# 	service_timer_end=`date +%s`
-# 	runtime=$((service_timer_end-service_timer_start))
-# 	echo "	done - $runtime seconds"
-# done 
-
-# sudo systemctl start docker
-# minikube start --driver=docker --cpus=4
-# minikube addons enable dashboard
-# minikube addons enable ingress
-# minikube addons enable metrics-server
-# minikube status
-
-# kubectl run nginx --image=nginx
-# kubectl get pods
-# kubectl expose nginx first-deployment --port=80 --type=NodePort
-# kubectl create deployment nginx --image=katacoda/docker-http-serve
-
-# minikube stop
-# minikube delete
-
-# echo 'pid /run/nginx.pid;' | cat - nginx.conf > temp && mv temp nginx.conf
-
-# docker rmi $(docker images -a -q)

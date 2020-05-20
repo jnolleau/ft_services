@@ -8,8 +8,9 @@ spec:
     app: grafana
   ports:
     - name: grafana
-      port: 3000
       nodePort: 3000
+      port: 3000
+      protocol: TCP
       targetPort: 3000
 
 ---
@@ -35,6 +36,11 @@ spec:
         securityContext:
           privileged: true
         env:
+        - name: MINIKUBE_IP
+          valueFrom:
+            configMapKeyRef:
+              name: ft-services-config
+              key: mk-ip
         - name: USER
           valueFrom:
             configMapKeyRef:

@@ -7,7 +7,7 @@ RUN tar -zxvf grafana-6.7.3.linux-amd64.tar.gz \
 && rm grafana-6.7.3.linux-amd64.tar.gz
 # && rm /grafana-6.7.3/conf/defaults.ini \
 
-# COPY ./defaults.ini ./grafana-6.6.0/conf/
+COPY ./defaults.ini /grafana-6.7.3/conf
 # COPY ./grafana.db ./grafana-6.6.0/data/
 
 COPY grafana.sh /usr/local/bin/

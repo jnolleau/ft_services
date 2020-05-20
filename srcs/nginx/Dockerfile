@@ -10,13 +10,13 @@ RUN mkdir -p /run/nginx/
 RUN ssh-keygen -A
 
 COPY default.conf /etc/nginx/conf.d/
-COPY wp.conf /etc/nginx/conf.d/
+# COPY wp.conf /etc/nginx/conf.d/
 
 COPY ./certs/nginx-selfsigned.key /etc/ssl/
 COPY ./certs/nginx-selfsigned.crt /etc/ssl/
 
-COPY index.php /www/
-COPY index.html /www/
+COPY index.php /tmp/
+COPY index.html /tmp/
 
 # RUN set -x ; \
 #   addgroup -g 82 -S www-data ; \

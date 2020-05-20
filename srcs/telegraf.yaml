@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: telegraf
-  replicas: 1 # tells deployment to run 2 pods matching the template
+  replicas: 1
   template:
     metadata:
       labels:
@@ -31,9 +31,7 @@ spec:
       volumes:
       - name: docker-socket
         hostPath:
-      # chemin du dossier sur l'hôte
           path: /var/run/docker.sock
-          # ce champ est optionnel
           type: Socket
       # ports:
       # - containerPort: 80
