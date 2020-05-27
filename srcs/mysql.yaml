@@ -13,7 +13,9 @@ spec:
   selector:
     app: wordpress
     tier: mysql
+
 ---
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -26,8 +28,10 @@ spec:
   resources:
     requests:
       storage: 100Mi
+
 ---
-apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
@@ -51,6 +55,11 @@ spec:
         image: mysql_img
         imagePullPolicy: Never
         env:
+        - name: USER
+          valueFrom:
+            configMapKeyRef:
+              name: ft-services-config
+              key: user
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:

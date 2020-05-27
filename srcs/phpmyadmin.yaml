@@ -3,13 +3,12 @@ kind: Service
 metadata:
   name: phpmyadmin
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: phpmyadmin
   ports:
     - name: pma
       port: 5000
-      nodePort: 5000
 
 ---
 
@@ -31,7 +30,6 @@ spec:
       - name: phpmyadmin
         image: phpmyadmin_img
         imagePullPolicy: Never
-        # command: ["sh", "-c", "tail -f /dev/null"]
         securityContext:
           privileged: true
         env:
@@ -52,11 +50,3 @@ spec:
               key: password
         ports:
         - containerPort: 5000
-        volumeMounts:
-        - name: wordpress-persistent-storage
-          mountPath: /www
-          # readOnly: true
-      volumes:
-      - name: wordpress-persistent-storage
-        persistentVolumeClaim:
-          claimName: wp-pv-claim

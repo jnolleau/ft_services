@@ -1,28 +1,18 @@
 FROM alpine
 
 # Installation
-# RUN apk update \
-# && apk add --no-cache php-cli php-fpm php-mysqli
+RUN apk update \
+&& apk add --no-cache php7 php7-fpm php7-opcache php7-gd php7-mysqli \
+php7-zlib php7-curl php7-mbstring php7-json php7-session
 
 RUN mkdir -p /www
-# RUN chown -R www-data:www-data /www
-# COPY latest.tar.gz /tmp/
-ADD https://wordpress.org/latest.tar.gz /tmp/
-COPY wp-config.php /tmp/
-# RUN tar -xvf /tmp/latest.tar.gz -C /www/ && rm /tmp/latest.tar.gz
 
-# RUN adduser -g www-data www-data
-# RUN adduser -D www-data www-data
-# RUN echo "www-data:pw" | chpasswd
-# RUN chown -R www-data:www-data /www/* && chmod -R 755 /www/*
-# Copy init files
-# COPY wordpress /var/www/localhost/htdocs
+ADD https://wordpress.org/latest.tar.gz /tmp/
+RUN tar -xvf /tmp/latest.tar.gz -C /www/ && rm /tmp/latest.tar.gz
+COPY wp-config.php /www/wordpress/
+
 COPY wp.sh /usr/local/bin/
 
 EXPOSE 5050
-
-# CMD ["wp.sh"]
-
-# CMD ["sh", "-c", "tail -f /dev/null"]
 
 ENTRYPOINT ["wp.sh"]

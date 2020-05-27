@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS wordpress;
+CREATE DATABASE IF NOT EXISTS grafana;
+CREATE USER 'wp_admin'@'%' IDENTIFIED BY 'pw';
+CREATE USER 'wp_user'@'%' IDENTIFIED BY 'pw';
+CREATE USER 'wp_user2'@'%' IDENTIFIED BY 'pw';
+CREATE USER 'superuser'@'%' IDENTIFIED BY 'pw';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'wp_admin'@'%';
+GRANT SELECT, INSERT, UPDATE ON wordpress.* TO 'wp_user'@'%';
+GRANT SELECT ON wordpress.* TO 'wp_user2'@'%';
+GRANT ALL PRIVILEGES ON *.* TO 'superuser'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;

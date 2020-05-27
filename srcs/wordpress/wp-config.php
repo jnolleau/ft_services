@@ -23,7 +23,7 @@
 define( 'DB_NAME', 'wordpress' );
 
 /** MySQL database username */
-define( 'DB_USER', 'wp_user' );
+define( 'DB_USER', 'wp_admin' );
 
 /** MySQL database password */
 define( 'DB_PASSWORD', 'pw' );
@@ -36,6 +36,17 @@ define( 'DB_CHARSET', 'utf8' );
 
 /** The Database Collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
+
+$minikube_ip = getenv('MINIKUBE_IP');
+
+/** Wp site URL*/
+define('WP_SITEURL','https://'.$minikube_ip.'/wordpress');
+define('WP_HOME', 'https://'.$minikube_ip.'/wordpress');
+
+if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') $_SERVER['HTTPS']='on';
+
+/** Fix to get the dashboard working with the reverse proxy.*/
+$_SERVER['REQUEST_URI'] = str_replace("/wp-admin/", "/wordpress/wp-admin/",  $_SERVER['REQUEST_URI']);
 
 /**#@+
  * Authentication Unique Keys and Salts.

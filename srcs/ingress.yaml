@@ -4,33 +4,33 @@ metadata:
   name: ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    # nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   rules:
-  - host: ft-services.julnolle
-    http:
+  - http:
       paths:
       - path: /
         backend:
           serviceName: nginx
-          servicePort: 80
-      # - path: /grafana/
-      #   backend:
-      #     serviceName: grafana
-      #     servicePort: 3000
+          servicePort: http
+      - path: /grafana/(.*)
+        backend:
+          serviceName: grafana
+          servicePort: 3000
+      - path: /wordpress/(.*)
+        backend:
+          serviceName: wordpress
+          servicePort: 5050
+      - path: /phpmyadmin/(.*)
+        backend:
+          serviceName: phpmyadmin
+          servicePort: 5000
       # - path: /
       #   backend:
       #     serviceName: nginx
       #     servicePort: 443
-      # - path: /wordpress
-      #   backend:
-      #     serviceName: wordpress
-      #     servicePort: 5050
-      # - path: /phpmyadmin
-      #   backend:
-      #     serviceName: phpmyadmin
-      #     servicePort: 5000
     # https:
     #   paths:
     #   - path: /

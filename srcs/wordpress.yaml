@@ -2,16 +2,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wordpress
-  labels:
-    app: wordpress
 spec:
-  type: NodePort
-  ports:
-    - port: 5050
-      nodePort: 5050
+  type: ClusterIP
   selector:
     app: wordpress
-    tier: frontend
+  ports:
+    - name: wordpress
+      port: 5050
+      protocol: TCP
+      targetPort: 5050
 
 ---
 
@@ -19,26 +18,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wordpress
-  labels:
-    app: wordpress
 spec:
   selector:
     matchLabels:
       app: wordpress
-      tier: frontend
-  strategy:
-    type: Recreate
+    # strategy:
+    # type: Recreate
   template:
     metadata:
       labels:
         app: wordpress
-        tier: frontend
     spec:
       containers:
       - name: wordpress
         image: wordpress_img
         imagePullPolicy: Never
         env:
+        - name: MINIKUBE_IP
+          valueFrom:
+            configMapKeyRef:
+              name: ft-services-config
+              key: mk-ip
         - name: WORDPRESS_DB_HOST
           value: mysql
         - name: WORDPRESS_DB_PASSWORD
@@ -49,10 +49,4 @@ spec:
         ports:
         - containerPort: 5050
           name: wordpress
-        volumeMounts:
-        - name: wordpress-persistent-storage
-          mountPath: /www
-      volumes:
-      - name: wordpress-persistent-storage
-        persistentVolumeClaim:
-          claimName: wp-pv-claim
+
