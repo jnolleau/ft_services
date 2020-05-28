@@ -1,3 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: telegraf
+  labels:
+    name: telegraf
+spec:
+  selector:
+    app: telegraf
+  clusterIP: None
+
+---
+
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
 kind: Deployment
 metadata:
@@ -12,6 +25,7 @@ spec:
       labels:
         app: telegraf
     spec:
+      serviceAccountName: telegraf-account
       containers:
       - name: telegraf
         image: telegraf_img
@@ -19,6 +33,8 @@ spec:
         securityContext:
           privileged: true
         env:
+        - name: HOSTNAME
+          value: "telegraf-polling-service"
         - name: USER
           valueFrom:
             configMapKeyRef:
@@ -36,16 +52,26 @@ spec:
       # ports:
       # - containerPort: 80
 
-# kind: Service
-# apiVersion: v1
-# metadata:
-#   name: telegraf
-# spec:
-#   type: NodePort
-#   selector:
-#     app: telegraf
-#   ports:
-#     - name: telegraf
-#       port: 7906
+---
 
-# ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: telegraf-account
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: telegraf-account
+  namespace: default
+
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: telegraf-account
+  labels:
+    app: telegraf
