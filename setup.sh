@@ -69,7 +69,7 @@ else
 		# Build Docker images
 		echo "Building ${service}_img ..."
 		docker build -t ${service}_img $srcs/$service > /dev/null
-		echo "${service}_img built"
+		echo "... ${service}_img built."
 	done
 
 	# Create the ConfigMap containing environment var for containers
@@ -94,14 +94,15 @@ else
 	echo "========== Cluster Settings =========="
 	echo "======================================"
 	echo "MINIKUBE_IP: $minikube_ip"
-	# echo "Nginx HTTP URL: `minikube service nginx --url | grep '80'`"
-	# echo "Nginx HTTPS URL: `minikube service nginx --url --https | grep '443'`"
 	echo "Nginx HTTP URL: http://$minikube_ip"
 	echo "Nginx HTTPS URL: https://$minikube_ip"
 	echo "Grafana URL: http://$minikube_ip/grafana/"
 	echo "Wordpress URL: http://$minikube_ip/wordpress/"
 	echo "PhpMyAdmin URL: http://$minikube_ip/phpmyadmin/"
-	# echo "Influxdb URL: `minikube service influxdb --url`"
-	echo "FTP URL: ftp://$minikube_ip - Port 30021"
-	echo "Connect Nginx by SSH: ssh $user@$minikube_ip -p 2022"
+	echo "FTP Anonymous: ftp://$minikube_ip:30021"
+	echo "FTP by fillezilla: ftp://$minikube_ip - port 30021 - pw: $password"
+	echo "Connect Nginx by SSH: ssh $user@$minikube_ip -p 2022 - pw: $password"
 fi
+
+
+# /.*k8s([^-]*).*/

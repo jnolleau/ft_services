@@ -19,6 +19,7 @@ $cfg['blowfish_secret'] = ''; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
 /**
  * Servers configuration
  */
+$cfg['PmaAbsoluteUri'] = 'http://{{MINIKUBE_IP}}/phpmyadmin/';
 $i = 0;
 
 /**

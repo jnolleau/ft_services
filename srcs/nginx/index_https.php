@@ -17,8 +17,8 @@
 		<h2>IP: <?= $minikube_ip ?></h2>
 		<div class="sites-avaibles">
 			<h3>sites availables</h3>
-			<strong>nginx</strong>: <a href="https://<?= $minikube_ip ?>:80">https://<?= $minikube_ip ?>:80</a></br>
-			<strong>or</strong> <a href="https://<?= $minikube_ip ?>:443">httpss://<?= $minikube_ip ?>:443</a></br>
+			<strong>nginx</strong>: <a href="http://<?= $minikube_ip ?>:80">http://<?= $minikube_ip ?>:80</a></br>
+			<strong>or</strong> <a href="https://<?= $minikube_ip ?>:443">https://<?= $minikube_ip ?>:443</a></br>
 			<strong>wordpress</strong>: <a href="https://<?= $minikube_ip ?>/wordpress/">https://<?= $minikube_ip ?>/wordpress/</a></br>
 			<strong>phpmyadmin</strong>: <a href="https://<?= $minikube_ip ?>/phpmyadmin/">https://<?= $minikube_ip ?>/phpmyadmin/</a></br>
 			<strong>grafana</strong>: <a href="https://<?= $minikube_ip ?>/grafana/">https://<?= $minikube_ip ?>/grafana/</a></br>
