@@ -12,7 +12,8 @@ COPY ./defaults.ini /grafana-7.0.1/conf
 COPY grafana.sh /usr/local/bin/
 COPY ./datas/telegraf_rs.yaml /grafana-7.0.1/conf/provisioning/datasources/
 COPY ./datas/docker_dash.yaml /grafana-7.0.1/conf/provisioning/dashboards/
-COPY ./datas/docker_monitoring.json /grafana-7.0.1/data/
+COPY ./datas/dashboard_per_pod.json /grafana-7.0.1/data/
+# COPY ./datas/docker_monitoring.json /grafana-7.0.1/data/
 
 RUN chmod +x /usr/local/bin/grafana.sh
 

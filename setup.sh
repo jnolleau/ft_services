@@ -106,3 +106,4 @@ fi
 
 
 # /.*k8s([^-]*).*/
+# /.*(ftps|grafana|influxdb|mysql|nginx|phpmyadmin|telegraf|wordpress)/

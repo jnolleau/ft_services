@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # List of the services, comment the ones you don't want to run
-services=('nginx' 'influxdb' 'telegraf'	'grafana' 'ftps' 'wordpress' 'mysql' 'phpmyadmin')
+services=('nginx' 'influxdb' 'telegraf'	'grafana' 'ftps' \
+	'wordpress' 'mysql' 'phpmyadmin' 'ingress' 'volumes')
 
 # Images source directory
 srcs='./srcs'

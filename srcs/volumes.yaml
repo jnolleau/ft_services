@@ -1,4 +1,17 @@
 apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: influxdb-pv-claim
+spec:
+  storageClassName: idb
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Mi
+  #storageClassName: yourClass
+---
+apiVersion: v1
 kind: PersistentVolume
 metadata:
    name: influxdb-pv-volume 
@@ -11,16 +24,3 @@ spec:
   hostPath:
     path: /data/idb
     type: DirectoryOrCreate
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: influxdb-pv-claim
-spec:
-  storageClassName: idb
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 50Mi
-  #storageClassName: yourClass

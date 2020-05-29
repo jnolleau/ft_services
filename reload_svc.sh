@@ -2,7 +2,7 @@
 
 srcs='./srcs'
 services=('nginx' 'influxdb' 'telegraf'	'grafana' 'ftps' \
-	'wordpress' 'mysql' 'phpmyadmin' 'ingress')
+	'wordpress' 'mysql' 'phpmyadmin' 'ingress' 'volumes')
 
 if [ $# -eq 1 ] && [[ " ${services[@]} " =~ " $1 " ]];
 then

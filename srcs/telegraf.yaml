@@ -33,24 +33,28 @@ spec:
         securityContext:
           privileged: true
         env:
-        - name: HOSTNAME
-          value: "telegraf-polling-service"
+        - name: MINIKUBE_IP
+          valueFrom:
+            configMapKeyRef:
+              name: ft-services-config
+              key: mk-ip
         - name: USER
           valueFrom:
             configMapKeyRef:
               name: ft-services-config
               key: user
-        volumeMounts:
-        - mountPath: /var/run/docker.sock
-          name: docker-socket
-          readOnly: true
-      volumes:
-      - name: docker-socket
-        hostPath:
-          path: /var/run/docker.sock
-          type: Socket
-      # ports:
-      # - containerPort: 80
+        - name: HOSTNAME
+          value: "telegraf-metrics-service"
+      #   volumeMounts:
+      #   - mountPath: /var/run/docker.sock
+      #     name: docker-socket
+      #     readOnly: true
+      # volumes:
+      # - name: docker-socket
+      #   hostPath:
+      #     path: /var/run/docker.sock
+      #     type: Socket
+
 
 ---
 
