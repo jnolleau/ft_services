@@ -8,7 +8,6 @@ php7-ctype php7-dom php7-fpm php7-session php7-mbstring
 
 RUN mkdir -p /run/nginx/
 RUN mkdir -p /www
-RUN mkdir -p /https
 
 RUN ssh-keygen -A
 
@@ -18,9 +17,11 @@ COPY ./certs/nginx-selfsigned.key /etc/ssl/
 COPY ./certs/nginx-selfsigned.crt /etc/ssl/
 
 COPY index.php /www/
-COPY index_https.php /https/
 
+COPY probes.sh /usr/local/bin/
 COPY nginx.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/nginx.sh
+RUN chmod +x /usr/local/bin/probes.sh
 
 EXPOSE 80 443 30022
 

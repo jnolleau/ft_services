@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:latest
 
 # Installation
 RUN apk update \
@@ -6,7 +6,7 @@ RUN apk update \
 && addgroup mysql mysql
 
 # Copy init files
-COPY wordpress.sql /tmp/
+# COPY wordpress.sql /tmp/
 COPY mysql.sql /tmp/
 COPY mysql.sh /usr/local/bin/
 COPY my.cnf /etc/mysql/my.cnf

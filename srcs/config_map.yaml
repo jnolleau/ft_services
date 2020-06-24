@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: ft-services-config
 data:
-  mk-ip: 172.17.0.2
+  mk-ip: 172.17.0.3
   user: julien
 
 ---

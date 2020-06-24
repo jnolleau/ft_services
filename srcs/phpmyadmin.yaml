@@ -3,13 +3,15 @@ kind: Service
 metadata:
   name: phpmyadmin
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: phpmyadmin
   ports:
     - name: pma
       port: 5000
-
+      protocol: TCP
+      nodePort: 5000
+      targetPort: 5000
 ---
 
 apiVersion: apps/v1

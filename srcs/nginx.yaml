@@ -68,6 +68,12 @@ spec:
             secretKeyRef:
               name: ft-services-secret
               key: password
+        livenessProbe:
+          exec:
+            command:
+            - /usr/local/bin/probes.sh
+          initialDelaySeconds: 3
+          periodSeconds: 3
         ports:
         - containerPort: 80
         - containerPort: 443

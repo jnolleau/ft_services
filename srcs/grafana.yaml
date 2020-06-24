@@ -3,15 +3,15 @@ kind: Service
 metadata:
   name: grafana
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: grafana
   ports:
     - name: grafana
       port: 3000
       protocol: TCP
+      nodePort: 3000
       targetPort: 3000
-
 ---
 
 apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2

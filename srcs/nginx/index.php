@@ -3,7 +3,7 @@
 	$password = getenv('PASSWORD');
 	$minikube_ip = getenv('MINIKUBE_IP');
 	$nginx_service_port_ssh = getenv('NGINX_SSH_SERVICE_PORT_SSH');
-	// $ftps_service_port_ftps = getenv('FTPS_SERVICE_PORT_FTPS');
+	$ftps_service_port_ftps = getenv('FTPS_SERVICE_PORT_FTPS');
 
 ?>
 
@@ -14,7 +14,7 @@
 		<style>
 			body, p {padding-left: 20px;}
 			h1,h2,h3   {margin-bottom: 5px;}
-			p   {margin-top: 0px;}
+			p   {margin-bottom: 0px;}
 		</style>
 	</head>
 	<body>
@@ -24,15 +24,21 @@
 			<h3>From their you can acces to the following services:</h3>
 			<p><strong>nginx</strong>: <a href="http://<?= $minikube_ip ?>:80">http://<?= $minikube_ip ?>:80</a></p>
 			<p><strong>nginx - https</strong>: <a href="https://<?= $minikube_ip ?>:443">https://<?= $minikube_ip ?>:443</a></p>
-			<p><strong>wordpress</strong>: <a href="http://<?= $minikube_ip ?>/wordpress/">http://<?= $minikube_ip ?>/wordpress/</a></p>
-			<p><strong>phpmyadmin</strong>: <a href="http://<?= $minikube_ip ?>/phpmyadmin/">http://<?= $minikube_ip ?>/phpmyadmin/</a></p>
-			<p><strong>grafana</strong>: <a href="http://<?= $minikube_ip ?>/grafana/">http://<?= $minikube_ip ?>/grafana/</a></p>
+			<p><strong>wordpress</strong>: <a href="http://<?= $minikube_ip ?>:5050">http://<?= $minikube_ip ?>:5050</a></br>
+			user: julien - password: 'pw'</p>
+			<p><strong>phpmyadmin</strong>: <a href="http://<?= $minikube_ip ?>:5000">http://<?= $minikube_ip ?>:5000</a></br>
+			superuser: superuser - password: 'pw' (all privleges on all databases)</br>
+			admin: wp_admin - password: 'pw' (all privleges on 'wordpress' database)</br>
+			user1: wp_user - password: 'pw' (restricted privileges)</br>
+			user2: wp_user2 - password: 'pw' (restricted privileges)
+			</p>
+			<p><strong>grafana</strong>: <a href="http://<?= $minikube_ip ?>:3000">http://<?= $minikube_ip ?>:3000</a></p>
 		</div>
 		<div class="others">
 			<h3>FTPS & SSH</h3>
 			<p><strong>nginx - ssh</strong>: ssh <?= $user ?>@<?= $minikube_ip ?> -p <?= $nginx_service_port_ssh ?> - password: '<?= $password ?>'</p>
-			<p><strong>Ftp anonymous</strong>: <a href="ftp://<?= $minikube_ip ?>:30021">ftp://<?= $minikube_ip ?>:30021</a></p>
-			<p><strong>Ftp by fillezilla</strong>: open filezilla and connect to <?= $minikube_ip ?> on port 30021</br>
+			<p><strong>Ftp anonymous</strong>: <a href="ftp://<?= $minikube_ip ?>:<?= $ftps_service_port_ftps ?>">ftp://<?= $minikube_ip ?>:<?= $ftps_service_port_ftps ?></a></p>
+			<p><strong>Ftp by fillezilla</strong>: open filezilla and connect to <?= $minikube_ip ?> on port <?= $ftps_service_port_ftps ?></br>
 			Credentials: <?= $user ?>:<?= $password ?></p>
 		</div>
 		<div class="useful-commands">

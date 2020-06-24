@@ -37,9 +37,16 @@ spec:
         - mountPath: /var/lib/influxdb
           name: influxdb-pv-data
           # readOnly: false
+        livenessProbe:
+          exec:
+            command:
+            - pgrep
+            - influxd
+          initialDelaySeconds: 3
+          periodSeconds: 3
       volumes:
       - name: influxdb-pv-data
         persistentVolumeClaim:
           claimName: influxdb-pv-claim
       # ports:
-        # - containerPort: 80
+        # - containerPort: 8086

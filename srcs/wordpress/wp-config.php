@@ -37,16 +37,18 @@ define( 'DB_CHARSET', 'utf8' );
 /** The Database Collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
 
-$minikube_ip = getenv('MINIKUBE_IP');
+// $minikube_ip = getenv('MINIKUBE_IP');
 
-/** Wp site URL*/
-define('WP_SITEURL','https://'.$minikube_ip.'/wordpress');
-define('WP_HOME', 'https://'.$minikube_ip.'/wordpress');
+// /** Wp site URL*/
+// define('WP_SITEURL','https://'.$minikube_ip.'/wordpress');
+// define('WP_HOME', 'https://'.$minikube_ip.'/wordpress');
+// define('WP_SITEURL','https://'.$minikube_ip.':5050');
+// define('WP_HOME', 'https://'.$minikube_ip.':5050');
 
-if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') $_SERVER['HTTPS']='on';
+// if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') $_SERVER['HTTPS']='on';
 
-/** Fix to get the dashboard working with the reverse proxy.*/
-$_SERVER['REQUEST_URI'] = str_replace("/wp-admin/", "/wordpress/wp-admin/",  $_SERVER['REQUEST_URI']);
+// /** Fix to get the dashboard working with the reverse proxy.*/
+// $_SERVER['REQUEST_URI'] = str_replace("/wp-admin/", ":5050/wp-admin/",  $_SERVER['REQUEST_URI']);
 
 /**#@+
  * Authentication Unique Keys and Salts.
@@ -88,7 +90,7 @@ $table_prefix = 'wp_';
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define( 'WP_DEBUG', true );
+define( 'WP_DEBUG', false );
 
 /* That's all, stop editing! Happy publishing. */
 

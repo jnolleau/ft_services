@@ -19,7 +19,7 @@ $cfg['blowfish_secret'] = 'gNsWq$%#%$#%EDFSsffsegbVp6LCJw6w'; /* YOU MUST FILL I
 /**
  * Servers configuration
  */
-$cfg['PmaAbsoluteUri'] = 'http://{{MINIKUBE_IP}}/phpmyadmin/';
+// $cfg['PmaAbsoluteUri'] = 'http://{{MINIKUBE_IP}}/phpmyadmin/';
 $i = 0;
 
 /**
