@@ -5,48 +5,33 @@ metadata:
 spec:
   type: NodePort
   selector:
-    app: wordpress
+    app: wp
   ports:
     - name: wordpress
-      port: 5050
-      protocol: TCP
+      targetPort: 5500
+      port: 5500
       nodePort: 5050
-      targetPort: 5050
 ---
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wordpress
+  name: wordpress-deployment
+  labels:
+    app: wp
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: wordpress
-    # strategy:
-    # type: Recreate
+      app: wp
   template:
     metadata:
       labels:
-        app: wordpress
+        app: wp
     spec:
       containers:
       - name: wordpress
         image: wordpress_img
         imagePullPolicy: Never
-        env:
-        - name: MINIKUBE_IP
-          valueFrom:
-            configMapKeyRef:
-              name: ft-services-config
-              key: mk-ip
-        - name: WORDPRESS_DB_HOST
-          value: mysql
-        - name: WORDPRESS_DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: ft-services-secret
-              key: password
         ports:
-        - containerPort: 5050
-          name: wordpress
-
+        - containerPort: 5500

@@ -11,5 +11,5 @@ mysql -u root < /tmp/wordpress.sql
 mysql -u root < /tmp/mysql.sql
 
 rc-service mariadb stop 2> /dev/NULL
-rm /tmp/wordpress.sql
+# rm /tmp/wordpress.sql
 mysqld

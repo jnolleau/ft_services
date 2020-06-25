@@ -25,7 +25,11 @@
 			<p><strong>nginx</strong>: <a href="http://<?= $minikube_ip ?>:80">http://<?= $minikube_ip ?>:80</a></p>
 			<p><strong>nginx - https</strong>: <a href="https://<?= $minikube_ip ?>:443">https://<?= $minikube_ip ?>:443</a></p>
 			<p><strong>wordpress</strong>: <a href="http://<?= $minikube_ip ?>:5050">http://<?= $minikube_ip ?>:5050</a></br>
-			user: julien - password: 'pw'</p>
+			admin: wp_admin - password: 'pw'</br>
+			user1: wp_user - password: 'pw' (Editor)</br>
+			user2: wp_user2 - password: 'pw' (Contributor)</br>
+			user3: wp_user3 - password: 'pw' (Subscriber)
+			</p>
 			<p><strong>phpmyadmin</strong>: <a href="http://<?= $minikube_ip ?>:5000">http://<?= $minikube_ip ?>:5000</a></br>
 			superuser: superuser - password: 'pw' (all privleges on all databases)</br>
 			admin: wp_admin - password: 'pw' (all privleges on 'wordpress' database)</br>

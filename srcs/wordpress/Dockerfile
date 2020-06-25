@@ -5,14 +5,14 @@ RUN apk update \
 && apk add --no-cache php7 php7-fpm php7-opcache php7-gd php7-mysqli \
 php7-zlib php7-curl php7-mbstring php7-json php7-session
 
-RUN mkdir -p /www
-
-ADD https://wordpress.org/latest.tar.gz /tmp/
-RUN tar -xvf /tmp/latest.tar.gz -C /www/ && rm /tmp/latest.tar.gz
-COPY wp-config.php /www/wordpress/
+RUN wget https://wordpress.org/latest.tar.gz
+RUN tar -zxvf latest.tar.gz && rm latest.tar.gz
+RUN mv wordpress /var/tmp/
+RUN cp -R /var/tmp/wordpress/* /var/tmp/
+RUN rm -R /var/tmp/wordpress/
+COPY wp-config.php /var/tmp/
 
 COPY wp.sh /usr/local/bin/
-
-EXPOSE 5050
+RUN chmod +x /usr/local/bin/wp.sh
 
 ENTRYPOINT ["wp.sh"]

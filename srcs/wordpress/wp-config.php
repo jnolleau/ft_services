@@ -18,6 +18,19 @@
  * @package WordPress
  */
 
+// $minikube_ip = getenv('MINIKUBE_IP');
+
+// /** Wp site URL*/
+// define('WP_SITEURL','https://'.$minikube_ip.'/wordpress');
+// define('WP_HOME', 'https://'.$minikube_ip.'/wordpress');
+// define('WP_SITEURL','http://'.$minikube_ip.':5050');
+// define('WP_HOME', 'http://'.$minikube_ip.':5050');
+
+// if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') $_SERVER['HTTPS']='on';
+
+// /** Fix to get the dashboard working with the reverse proxy.*/
+// $_SERVER['REQUEST_URI'] = str_replace("/wp-admin/", ":5050/wp-admin/",  $_SERVER['REQUEST_URI']);
+
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define( 'DB_NAME', 'wordpress' );
@@ -32,24 +45,10 @@ define( 'DB_PASSWORD', 'pw' );
 define( 'DB_HOST', 'mysql' );
 
 /** Database Charset to use in creating database tables. */
-define( 'DB_CHARSET', 'utf8' );
+define( 'DB_CHARSET', 'utf8mb4' );
 
 /** The Database Collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
-
-// $minikube_ip = getenv('MINIKUBE_IP');
-
-// /** Wp site URL*/
-// define('WP_SITEURL','https://'.$minikube_ip.'/wordpress');
-// define('WP_HOME', 'https://'.$minikube_ip.'/wordpress');
-// define('WP_SITEURL','https://'.$minikube_ip.':5050');
-// define('WP_HOME', 'https://'.$minikube_ip.':5050');
-
-// if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') $_SERVER['HTTPS']='on';
-
-// /** Fix to get the dashboard working with the reverse proxy.*/
-// $_SERVER['REQUEST_URI'] = str_replace("/wp-admin/", ":5050/wp-admin/",  $_SERVER['REQUEST_URI']);
-
 /**#@+
  * Authentication Unique Keys and Salts.
  *
@@ -59,14 +58,14 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         'put your unique phrase here' );
-define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
-define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
-define( 'NONCE_KEY',        'put your unique phrase here' );
-define( 'AUTH_SALT',        'put your unique phrase here' );
-define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
-define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
-define( 'NONCE_SALT',       'put your unique phrase here' );
+define( 'AUTH_KEY',         '9L@hPFehy&CS0/EXX@1g6yi/zxQ4.hX3 ;q7@:@&dtLpt&3&WZP)F?c35f(v[+C6' );
+define( 'SECURE_AUTH_KEY',  'CEo$*sCoS00uW}QQ#TOI#oz,#~L!6d9xk<2Unp..r{/Gbf(HH]vlQlylP1 P1s?3' );
+define( 'LOGGED_IN_KEY',    'S$_(o>zxrvhe<_ezA^7vFx#}*l?([}?H`$!64R!+F(S*Q@9,g$/Tvw]gR;pjpfH.' );
+define( 'NONCE_KEY',        'S[mBF@+%opc[XlTUgY<$MqdJ%nch$K&1-P N>|{/.`&n9C@`0s]!Q#{Q,vvb>(S;' );
+define( 'AUTH_SALT',        'sp%u5WWkkwggkMa;{/,5Bhr-#Pt=+QB*28{8rbUD~ah&#9#%CWctZ+#~y0{ 2~8^' );
+define( 'SECURE_AUTH_SALT', '>Be!tGP*&J}a;pR^^stQOY-t09@0> ,Lg42g4tz(kDNf4b)4^,*gc4jQ0owpUq(q' );
+define( 'LOGGED_IN_SALT',   'H#AS*E=PP:iXJ:QZY+6K;;[62);$3=p3qE8pdAOz,>x)#t>bSQ9&2S_Sd&5iCP0M' );
+define( 'NONCE_SALT',       '>ZryQ(BG`k93BG9RQ?o2L_W&k41nCJ/YJEY9(KEfj[ <F}I}>`]/ia6<e,g_pB1X' );
 
 /**#@-*/
 
@@ -96,7 +95,7 @@ define( 'WP_DEBUG', false );
 
 /** Absolute path to the WordPress directory. */
 if ( ! defined( 'ABSPATH' ) ) {
-	define( 'ABSPATH', __DIR__ . '/' );
+        define( 'ABSPATH', __DIR__ . '/' );
 }
 
 /** Sets up WordPress vars and included files. */

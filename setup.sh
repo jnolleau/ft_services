@@ -46,16 +46,18 @@ if [ $? != 0 ]
 then
     echo "Docker service stoped. Starting it..."
 	sudo service docker start
+	#sudo groupadd docker
+	#sudo usermod -aG docker $USER
 fi
 	# Launch Minikube ans install addons
-	minikube start --cpus=8 --memory=4096 --driver=docker --extra-config=apiserver.service-node-port-range=10-32767
+	minikube start --cpus=2 --driver=docker --extra-config=apiserver.service-node-port-range=10-32767
 	minikube addons enable dashboard
 	minikube addons enable ingress
 	minikube addons enable metrics-server
 	
 	# Collect minikube ip
-	minikube_ip=`minikube ip`
-	# minikube_ip="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"
+	#minikube_ip=`minikube ip`
+	 minikube_ip="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"
 
 	#Create config file from templates
 	mv $srcs/config_map.yaml.bak $srcs/config_map.yaml
@@ -106,9 +108,9 @@ fi
 	echo "Grafana URL: http://$minikube_ip:3000"
 	echo "Wordpress URL: http://$minikube_ip:5050"
 	echo "PhpMyAdmin URL: http://$minikube_ip:5000"
-	echo "FTP Anonymous: ftp://$minikube_ip:30021"
-	echo "FTP by fillezilla: ftp://$minikube_ip - port 30021 - pw: $password"
-	echo "Connect Nginx by SSH: ssh $user@$minikube_ip -p 2022 - pw: $password"
+	echo "FTP Anonymous: ftp://$minikube_ip:21"
+	echo "FTP by fillezilla: ftp://$minikube_ip - port 21 - pw: $password"
+	echo "Connect Nginx by SSH: ssh $user@$minikube_ip -p 30022 - pw: $password"
 fi
 
 
