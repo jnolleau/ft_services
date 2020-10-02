@@ -35,3 +35,24 @@ spec:
       #   backend:
       #     serviceName: phpmyadmin
       #     servicePort: 5000
+
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: ingress
+#   annotations:
+#     kubernetes.io/ingress.class: "nginx"
+#     # nginx.ingress.kubernetes.io/rewrite-target: /$1
+# spec:
+#   rules:
+#   - host: services.local
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: nginx
+#             port:
+#               number: 80

@@ -8,4 +8,4 @@ providers:
   disableDeletion: true
   editable: true
   options:
-    path: /grafana-7.0.1/data/
+    path: /grafana-7.2.0/data/

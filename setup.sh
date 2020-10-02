@@ -50,10 +50,10 @@ then
 	#sudo usermod -aG docker $USER
 fi
 	# Launch Minikube ans install addons
-	minikube start --cpus=2 --driver=docker --extra-config=apiserver.service-node-port-range=10-32767
+	minikube start --cpus=4 --driver=docker --extra-config=apiserver.service-node-port-range=10-32767
+	minikube addons enable metrics-server
 	minikube addons enable dashboard
 	minikube addons enable ingress
-	minikube addons enable metrics-server
 	
 	# Collect minikube ip
 	#minikube_ip=`minikube ip`

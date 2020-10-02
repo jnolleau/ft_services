@@ -10,6 +10,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<meta charset="UTF-8">
 		<title>ft_services by julnolle</title>
 		<style>
 			body, p {padding-left: 20px;}
