@@ -1,8 +1,8 @@
 # ft_services
 
-Setting-up a multi-services cluster based on Docker and deployed with Kubernetes
-Each service is running in a dedicated container, working on Apline Linux.
-All docker images are especially crafted for this project, none are from external registry.
+Setting-up a multi-services cluster based on Docker and deployed with Kubernetes  
+Each service is running in a dedicated container, working on Apline Linux.  
+All docker images are especially crafted for this project, none are from external registry.  
 
 ## What's included
 ### The cluster is composed by these services, running in separate containers :
