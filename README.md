@@ -36,7 +36,7 @@ minikube dashboard
 ```sh
 kubectl get pods
 ```
-### Lanch a shell into a container:
+### Launch a shell into a container:
 ```sh
 kubectl exec -it [pod_name] -- /bin/sh
 ```
