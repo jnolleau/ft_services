@@ -24,7 +24,7 @@ All docker images are especially crafted for this project, none are from externa
 
 ## Some usefull commands
 
-### Start minikube:
+### Start Kubernetes locally with minikube:
 ```sh
 minikube start
 ```
